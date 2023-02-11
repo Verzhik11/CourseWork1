@@ -3,25 +3,25 @@ public class Employee {
     private int salary;
     private final int department;
     private int id;
+    private static int counter = 1;
 
 
-    public Employee(String name, int salary, int department, int id) {
+    public Employee(String name, int salary, int department) {
         this.name = name;
         this.salary = salary;
-        this.department = department;
-        this.id = id;
-        id = idCounter++;
+        this.department = checkDepartment(department);
+        this.id = counter++;
     }
-    public static int idCounter = 0;
-
-
-    public int checkDepartment() {
+    public int checkDepartment(int department) {
         if (department >= 1 && department <= 5) {
             return department;
         } else {
             throw new IllegalArgumentException("Ошибка при написании отдела");
-
         }
+    }
+
+    public String toString() {
+        return "Работник" + " " + this.name + " работает в отделе " + this.department + " и получает ЗП " + this.salary + " рублей";
     }
 
     public String getName() {
@@ -40,4 +40,7 @@ public class Employee {
         return department;
     }
 
+    public int getId() {
+        return id;
+    }
 }
