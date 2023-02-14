@@ -13,9 +13,10 @@ public class Main {
         employees[8] = new Employee("Кристина Солженицына", 69800, 1);
         employees[9] = new Employee("Алина Костарева", 49000, 2);
         printEmployees();
-        countTotalSalary();
-        printMaxSalary();
-        printMinSalary();
+        System.out.println("Общие затраты на ЗП составляют " + countTotalSalary() + " рублей");
+        System.out.println(findEmployeerMaxSalary() + " (сотрудник с максимальной ЗП)");
+        System.out.println(findEmployeerMinSalary() + " (сотрудник с минимальной ЗП)");
+        System.out.println("Средняя ЗП составляет " + countAverageSalary() + " рублей");
         printNameWithId();
         }
 
@@ -24,32 +25,42 @@ public class Main {
             System.out.println(employees[i]);
         }
     }
-    public static void countTotalSalary () {
+    public static int countTotalSalary () {
         int totalSalary = 0;
-        for (int i = 0; i < employees.length; i++) {
-            totalSalary = totalSalary + employees[i].getSalary();
+        for (Employee i : employees) {
+            totalSalary = totalSalary + i.getSalary();
         }
-        System.out.println("Общая сумма выплаты ЗП сотрудникам равна " + totalSalary + " рублей");
-        System.out.println("Средняя ЗП составляет " + totalSalary / employees.length + " рублей");
+        return totalSalary;
     }
 
-    public static void printMinSalary() {
+    public static Employee findEmployeerMinSalary() {
         double minSalary = 1.0 / 0;
+        Employee employee = null;
         for (int i = 0; i < employees.length; i++) {
             if (employees[i].getSalary() < minSalary) {
                 minSalary = employees[i].getSalary();
+                employee = employees[i];
             }
         }
-        System.out.println("Минимальная ЗП среди сотрудников составляет " + minSalary + " рублей" );
+        return employee;
     }
-    public static void printMaxSalary() {
-        int maxSalary = -1;
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getSalary() > maxSalary) {
-                maxSalary = employees[i].getSalary();
+    public static Employee findEmployeerMaxSalary() {
+        int maxSalary = Integer.MIN_VALUE;
+        Employee employee = null;
+        for (Employee i : employees) {
+            if (i.getSalary() > maxSalary) {
+                maxSalary = i.getSalary();
+                employee = i;
             }
         }
-        System.out.println("Максимальная ЗП среди сотрудников составляет " + maxSalary + " рублей" );
+        return employee;
+    }
+
+    public static int countAverageSalary() {
+        int totalSalary = countTotalSalary();
+        int averageSalary = totalSalary / employees.length;
+        return averageSalary;
+
     }
 
     public static void printNameWithId() {
